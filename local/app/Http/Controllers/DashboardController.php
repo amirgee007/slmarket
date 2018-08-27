@@ -490,7 +490,6 @@ class DashboardController extends Controller
         if ($providor == "") {
             $rules = array(
 
-
                 'email' => 'required|email|unique:users,email,' . $id,
                 'name' => 'required|regex:/^[\w-]*$/|max:255|unique:users,name,' . $id,
                 'photo' => 'max:' . $imgsize . '|mimes:' . $imagetype,
@@ -826,7 +825,6 @@ class DashboardController extends Controller
 
             DB::update('update users set name="' . $name . '",post_slug="' . $this->clean($name) . '",email="' . $email . '",password="' . $passtxt . '",phone="' . $phone . '",gender="' . $gender . '",country="' . $country . '",photo="' . $savefname . '",profile_banner="' . $save_banners . '",about="' . $about_txt . '",address="' . $address . '",local_shipping_price="' . $local_shipping_price . '",world_shipping_price="' . $world_shipping_price . '" where id = ?', [$id]);
 
-            //amir
 
             return back()->with('success', 'Account has been updated');
         }

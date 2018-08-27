@@ -467,8 +467,7 @@ class EdituserController extends Controller
 		
 		DB::update('update post set post_email="'.$email.'" where post_type="comment" and post_user_id = ?', [$id]);
 
-            //amir
-		
+
 		DB::update('update users set name="'.$name.'",post_slug="'.$this->clean($name).'",email="'.$email.'",password="'.$passtxt.'",phone="'.$phone.'",country="'.$country.'",photo="'.$savefname.'",admin="'.$admin.'",earning="'.$earning.'" where id = ?', [$id]);
 		
 		

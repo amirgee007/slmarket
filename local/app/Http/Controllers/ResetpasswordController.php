@@ -129,7 +129,7 @@ class ResetpasswordController extends Controller
 		 if($count == 1)
 		 {
 		    DB::update('update users set password="'.$password.'" where email = "'.$email.'" and remember_token = ?', [$password_token]);
-             //amir
+
 		    $getpassword = DB::table('users')
 			->where('email', '=', $email)
 			->get();
