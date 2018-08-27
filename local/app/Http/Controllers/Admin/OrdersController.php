@@ -187,9 +187,10 @@ class OrdersController extends Controller
 
                 $credit_amt = $wallet_balance + $vendor_final_amt;
 
+
                 UserEarning::firstOrCreate([
                     'user_id' => $user_check[0]->id,
-                    'product_order_id' => $views->prod_user_id->id,
+                    'product_order_id' => $views->ord_id,
                     'cleared_at' => Carbon::now()->addDay(10),
                 ]);
 //amir updated
