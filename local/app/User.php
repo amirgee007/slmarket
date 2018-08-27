@@ -26,5 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function userEarnings()
+    {
+        return $this->hasMany(UserEarning::class ,'user_id' ,'id');
+    }
+
+    public function productOrder()
+    {
+        return $this->hasMany(ProductOrder::class ,'user_id' ,'id');
+    }
 }
 

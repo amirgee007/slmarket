@@ -59,6 +59,8 @@ class WalletController extends Controller
             ->where('user_id', '=', $logged)
             ->where('withdraw_status', '=', 'completed')
             ->count();
+
+
         $complete_withdraw = DB::table('product_withdraw')
             ->where('user_id', '=', $logged)
             ->where('withdraw_status', '=', 'completed')
