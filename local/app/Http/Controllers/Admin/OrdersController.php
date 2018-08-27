@@ -191,7 +191,7 @@ class OrdersController extends Controller
                 UserEarning::firstOrCreate([
                     'user_id' => $user_check[0]->id,
                     'product_order_id' => $views->ord_id,
-                    'cleared_at' => Carbon::now()->addDay(10),
+                    'cleared_at' => Carbon::now()->addDay(config('app.after_days_funds_clear')),
                     'total' => $vendor_final_amt,
                 ]);
 //amir updated
