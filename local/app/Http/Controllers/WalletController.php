@@ -2,6 +2,7 @@
 
 namespace Responsive\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +37,25 @@ class WalletController extends Controller
     {
 
         $logged = Auth::user()->id;
+        $user = Auth::user();
 
+        $pending_earnings = $user->userPendingEarnings;
+
+        foreach ($pending_earnings as $pending_earning)
+        {
+
+
+            if(Carbon::parse($pending_earning->cleared_at)->lessThanOrEqualTo(Carbon::now()))
+            {
+                $credit_amt = $user->money + $pending_earning->total;
+                $pending_earning->update(['cleared_at' => true]);
+                $user->update(['money' => $credit_amt]);
+            }
+        }
+
+        $pending_earnings = $user->userPendingEarnings;
+
+        $cleared_earnings = $user->userClearedEarnings;
 
         $set_id = 1;
         $site_setting = DB::table('settings')->where('id', $set_id)->get();
@@ -67,7 +86,17 @@ class WalletController extends Controller
             ->get();
 
 
-        $data = array('site_setting' => $site_setting, 'get_users_stage1' => $get_users_stage1, 'pending_withdraw_cnt' => $pending_withdraw_cnt, 'pending_withdraw' => $pending_withdraw, 'complete_withdraw_cnt' => $complete_withdraw_cnt, 'complete_withdraw' => $complete_withdraw);
+        $data = array(
+            'pending_earnings'=> $pending_earnings,
+            'cleared_earnings'=> $cleared_earnings,
+            'site_setting' => $site_setting,
+            'get_users_stage1' => $get_users_stage1,
+            'pending_withdraw_cnt' => $pending_withdraw_cnt,
+            'pending_withdraw' => $pending_withdraw,
+            'complete_withdraw_cnt' => $complete_withdraw_cnt,
+            'complete_withdraw' => $complete_withdraw
+        );
+
         return view('my-balance')->with($data);
     }
 

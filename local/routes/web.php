@@ -218,7 +218,7 @@ Route::post('/view-shopping', ['as' => 'view-shopping', 'uses' => 'MyhistoryCont
 
 Route::get('/my-orders', 'MyhistoryController@avigher_view_myorders');
 
-Route::get('/view-orders/{ord_id}/{user_id}', 'MyhistoryController@avigher_view_orderdetails');
+Route::get('/view-orders/{ord_id}/{user_id}', 'MyhistoryController@avigher_view_orderdetails')->name('user-my-order');
 
 /* END MY ORDERS */
 

@@ -14,9 +14,16 @@ $headertype = $setts[0]->header_type;
 <head>
 
     @include('style')
-
+    <style>
+        .body-content .my-wishlist-page .my-wishlist table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            padding: 10px; !important;
+            margin-bottom: 0px !important;
+        }
+    </style>
 </head>
 <body class="cnt-home">
+
+
 
 
 @include('header')
@@ -63,61 +70,65 @@ $headertype = $setts[0]->header_type;
                 <div class="shopping-cart-table ">
                     <div class="col-md-6">
                         <div class="heading-title"
-                             style="border-bottom:none !important;">@lang('languages.my_balance')</div>
+                             style="border-bottom:none !important;">@lang('languages.my_balance') (<?php echo $get_users_stage1[0]->earning;?> <?php echo $site_setting[0]->site_currency;?>)</div>
+                       <span class="text-danger"> @lang('languages.minimum_withdraw')
+                           : <?php if(!empty($site_setting[0]->withdraw_amt)){
+                               echo $site_setting[0]->withdraw_amt;
+                           } else { ?>0<?php } ?>  <?php echo $site_setting[0]->site_currency;?></span>
                     </div>
+
                     <div class="col-md-6 text-right"></div>
 
                     <div class="height20 clearfix"></div>
 
-
                     <div class="container-fluid">
-
 
                         <div class="height20 clearfix"></div>
 
-
                         <div class="col-md-9">
-
 
                             <div class="col-md-12 wallet_border">
 
+                                <div class="table-responsive">
 
-                                <div class="gallerybox_new clearfix">
+                                    <table class="table">
+                                        <tr>
+                                            <th>DATE</th>
+                                            <th width="40%">FOR</th>
+                                            <th>VIEW</th>
+                                            <th style="width: 30px">AMOUNT</th>
+                                        </tr>
 
+                                        @foreach($pending_earnings as $pending_earning)
+                                        <tr>
+                                            <td>{{\Carbon\Carbon::parse($pending_earning->cleared_at)->toFormattedDateString()}}</td>
 
-                                    <div class="para_pads">
+                                            <td>
+                                                <div class="progress progress-xs progress-striped active" style="height:15px; margin-bottom: 0px">
+                                                    <div class="progress-bar progress-bar-primary" style="width: {{100-(\Carbon\Carbon::parse($pending_earning->cleared_at)->diffInDays(\Carbon\Carbon::now()) * 10)}}%">
 
-                                        <div class="bottombordr">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>Order Revenue <a href="{{route('user-my-order' , [$pending_earning->product_order_id, $pending_earning->user_id])}}">(view order)</a></td>
+                                            <td><span class="badge bg-light-blue">{{$pending_earning->total}}</span></td>
+                                        </tr>
+                                        @endforeach
 
-                                            <div class="col-md-8 text-center review_bottom">
-                                                <div class="height30"></div>
-                                                <span class="min_with black">@lang('languages.minimum_withdraw')
-                                                    : <?php echo $site_setting[0]->site_currency;?> <?php if(!empty($site_setting[0]->withdraw_amt)){
-                                                        echo $site_setting[0]->withdraw_amt;
-                                                    } else { ?>0<?php } ?></span>
-                                            </div>
+                                        @foreach($cleared_earnings as $cleared_earning)
+                                            <tr>
+                                                <td>{{\Carbon\Carbon::parse($pending_earning->cleared_at)->toFormattedDateString()}}</td>
 
-
-                                            <div class="col-md-4 text-center review_bottom_two">
-                                                <span class="fontsize35 black"><?php echo $get_users_stage1[0]->earning;?> <?php echo $site_setting[0]->site_currency;?></span>
-                                                <div class="re_text fontsize20 black">@lang('languages.available_balance')</div>
-                                                <div class="smalltxt fontsize11 black">@lang('languages.cleared_funds')</div>
-
-                                            </div>
-
-
-                                            <div class="clearfix"></div>
-                                        </div>
-
-
-                                    </div>
-
-
+                                                <td>
+                                                    Cleared
+                                                </td>
+                                                <td>Order Revenue <a href="{{route('user-my-order' , [$pending_earning->product_order_id, $pending_earning->user_id])}}">(view order)</a></td>
+                                                <td><span class="badge bg-light-blue">{{$pending_earning->total}}</span></td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
                                 </div>
-
-
                             </div>
-
 
                         </div>
 
@@ -128,6 +139,7 @@ $headertype = $setts[0]->header_type;
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <p class="black">@lang('languages.withdraw_amount') :</p>
+
                                     <input type="text"
                                            class="form-control unicase-form-control validate[required] radiusoff"
                                            id="withdraw_amount" name="withdraw_amount">

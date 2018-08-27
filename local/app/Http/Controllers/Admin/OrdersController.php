@@ -192,6 +192,7 @@ class OrdersController extends Controller
                     'user_id' => $user_check[0]->id,
                     'product_order_id' => $views->ord_id,
                     'cleared_at' => Carbon::now()->addDay(10),
+                    'total' => $vendor_final_amt,
                 ]);
 //amir updated
 //                DB::update('update users set earning="' . $credit_amt . '" where id = ?', [$prod_user_id]);

@@ -28,9 +28,14 @@ class User extends Authenticatable
     ];
 
 
-    public function userEarnings()
+    public function userPendingEarnings()
     {
-        return $this->hasMany(UserEarning::class ,'user_id' ,'id');
+        return $this->hasMany(UserEarning::class ,'user_id' ,'id')->where('cleared' ,0);
+    }
+
+    public function userClearedEarnings()
+    {
+        return $this->hasMany(UserEarning::class ,'user_id' ,'id')->where('cleared' ,1);
     }
 
     public function productOrder()
