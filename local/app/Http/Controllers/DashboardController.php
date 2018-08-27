@@ -793,29 +793,29 @@ class DashboardController extends Controller
             } else {
 
                 DB::update('update product_billing_shipping set 
-		bill_firstname="' . $bill_firstname . '",
-		bill_lastname="' . $bill_lastname . '",
-		bill_companyname="' . $bill_companyname . '",
-		bill_email="' . $bill_email . '",
-		bill_phone="' . $bill_phone . '",
-		bill_country="' . $bill_country . '",
-		bill_address="' . $bill_address . '",
-		bill_city="' . $bill_city . '",
-		bill_state="' . $bill_state . '",
-		bill_postcode="' . $bill_postcode . '",
-		enable_ship="' . $enable_ship . '",
-		ship_firstname="' . $ship_firstname . '",
-		ship_lastname="' . $ship_lastname . '",
-		ship_companyname="' . $ship_companyname . '",
-		ship_email="' . $ship_email . '",
-		ship_phone="' . $ship_phone . '",
-		ship_country="' . $ship_country . '",
-		ship_address="' . $ship_address . '",
-		ship_city="' . $ship_city . '",
-		ship_state="' . $ship_state . '",
-		ship_postcode="' . $ship_postcode . '"
+                    bill_firstname="' . $bill_firstname . '",
+                    bill_lastname="' . $bill_lastname . '",
+                    bill_companyname="' . $bill_companyname . '",
+                    bill_email="' . $bill_email . '",
+                    bill_phone="' . $bill_phone . '",
+                    bill_country="' . $bill_country . '",
+                    bill_address="' . $bill_address . '",
+                    bill_city="' . $bill_city . '",
+                    bill_state="' . $bill_state . '",
+                    bill_postcode="' . $bill_postcode . '",
+                    enable_ship="' . $enable_ship . '",
+                    ship_firstname="' . $ship_firstname . '",
+                    ship_lastname="' . $ship_lastname . '",
+                    ship_companyname="' . $ship_companyname . '",
+                    ship_email="' . $ship_email . '",
+                    ship_phone="' . $ship_phone . '",
+                    ship_country="' . $ship_country . '",
+                    ship_address="' . $ship_address . '",
+                    ship_city="' . $ship_city . '",
+                    ship_state="' . $ship_state . '",
+                    ship_postcode="' . $ship_postcode . '"
 		
-		 where user_id = ?', [$id]);
+		                where user_id = ?', [$id]);
 
             }
 

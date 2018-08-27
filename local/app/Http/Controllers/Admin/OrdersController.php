@@ -2,6 +2,7 @@
 
 namespace Responsive\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use File;
 use Image;
 use Responsive\Http\Controllers\Controller;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Mail;
 use Auth;
 use Crypt;
+use Responsive\UserEarning;
 use URL;
 
 
@@ -130,13 +132,13 @@ class OrdersController extends Controller
     public function orders_approval($purchase_token, $admin_commission, $vendor_commission)
     {
 
-
         $product_count = DB::table('product_checkout')
             ->where('purchase_token', '=', $purchase_token)
             ->where('payment_approval', '=', 0)
             ->count();
 
         $set_id = 1;
+
         $site_setting = DB::table('settings')->where('id', $set_id)->get();
 
 
@@ -185,9 +187,13 @@ class OrdersController extends Controller
 
                 $credit_amt = $wallet_balance + $vendor_final_amt;
 
-//amir
-                DB::update('update users set earning="' . $credit_amt . '" where id = ?', [$prod_user_id]);
-
+                UserEarning::firstOrCreate([
+                    'user_id' => $user_check[0]->id,
+                    'product_order_id' => $views->prod_user_id->id,
+                    'cleared_at' => Carbon::now()->addDay(10),
+                ]);
+//amir updated
+//                DB::update('update users set earning="' . $credit_amt . '" where id = ?', [$prod_user_id]);
 
             }
 
@@ -201,7 +207,7 @@ class OrdersController extends Controller
             $admin_credit = $admin_wallet + $admin_amount;
 
             DB::update('update users set earning="' . $admin_credit . '" where id = ?', [1]);
-//amir
+
 
             $user = DB::table('users')
                 ->where('id', '=', $product[0]->user_id)

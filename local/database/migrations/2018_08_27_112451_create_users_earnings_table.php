@@ -18,6 +18,7 @@ class CreateUsersEarningsTable extends Migration
             $table->integer('user_id');
             $table->integer('product_order_id');
             $table->dateTime('cleared_at');
+            $table->boolean('cleared')->default(0);
             $table->timestamps();
         });
     }

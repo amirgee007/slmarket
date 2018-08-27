@@ -143,7 +143,7 @@ class WalletController extends Controller
 
                 DB::update('update users set earning="' . $clear_balance . '" where id = ?', [Auth::user()->id]);
 
-//amir
+
                 DB::insert('insert into product_withdraw (user_id,withdraw_amount,withdraw_payment_type,paypal_id,stripe_id,bank_account_no,bank_info,bank_ifsc,withdraw_status) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [$logged, $withdraw_amount, $withdraw_type, $paypal_id, $stripe_id, $bank_acc_no, $bank_name, $ifsc_code, $withdraw_status]);
 
 
