@@ -43,12 +43,11 @@ class WalletController extends Controller
 
         foreach ($pending_earnings as $pending_earning)
         {
-
-
+            
             if(Carbon::parse($pending_earning->cleared_at)->lessThanOrEqualTo(Carbon::now()))
             {
                 $credit_amt = $user->money + $pending_earning->total;
-                $pending_earning->update(['cleared_at' => true]);
+                $pending_earning->update(['cleared' => true]);
                 $user->update(['money' => $credit_amt]);
             }
         }
