@@ -117,13 +117,13 @@ $headertype = $setts[0]->header_type;
 
                                         @foreach($cleared_earnings as $cleared_earning)
                                             <tr>
-                                                <td>{{\Carbon\Carbon::parse($pending_earning->cleared_at)->toFormattedDateString()}}</td>
+                                                <td>{{\Carbon\Carbon::parse($cleared_earning->cleared_at)->toFormattedDateString()}}</td>
 
                                                 <td>
                                                     Cleared
                                                 </td>
-                                                <td>Order Revenue <a href="{{route('user-my-order' , [$pending_earning->product_order_id, $pending_earning->user_id])}}">(view order)</a></td>
-                                                <td><span class="badge bg-light-blue">{{$pending_earning->total}}</span></td>
+                                                <td>Order Revenue <a href="{{route('user-my-order' , [$cleared_earning->product_order_id, $cleared_earning->user_id])}}">(view order)</a></td>
+                                                <td><span class="badge bg-light-blue">{{$cleared_earning->total}}</span></td>
                                             </tr>
                                         @endforeach
                                     </table>

@@ -37,25 +37,28 @@ class WalletController extends Controller
     {
 
         $logged = Auth::user()->id;
+
         $user = Auth::user();
 
-        $pending_earnings = $user->userPendingEarnings;
+        $pending_earnings_before = $user->userPendingEarnings;
 
-        foreach ($pending_earnings as $pending_earning)
+
+        foreach ($pending_earnings_before as $pending_earning)
         {
 
             if(Carbon::parse($pending_earning->cleared_at)->lessThanOrEqualTo(Carbon::now()))
             {
-                $credit_amt = $user->money + $pending_earning->total;
+                $credit_amt = $user->earning + $pending_earning->total;
                 $pending_earning->update(['cleared' => true]);
-                $user->update(['money' => $credit_amt]);
+                $user->update(['earning' => $credit_amt]);
+
             }
         }
 
-        $pending_earnings = $user->userPendingEarnings;
+        $pending_earnings = DB::table('user_earnings')->where('user_id', $logged)->where('cleared', false)->get();
+        $cleared_earnings = DB::table('user_earnings')->where('user_id', $logged)->where('cleared', true)->get();
 
-        $cleared_earnings = $user->userClearedEarnings;
-
+        
         $set_id = 1;
         $site_setting = DB::table('settings')->where('id', $set_id)->get();
 
@@ -67,6 +70,7 @@ class WalletController extends Controller
             ->where('user_id', '=', $logged)
             ->where('withdraw_status', '=', 'pending')
             ->count();
+
         $pending_withdraw = DB::table('product_withdraw')
             ->where('user_id', '=', $logged)
             ->where('withdraw_status', '=', 'pending')

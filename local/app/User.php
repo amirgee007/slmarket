@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array 
      */
     protected $fillable = [
-        'name', 'post_slug', 'email', 'password','gender','admin','phone','photo','provider', 'provider_id','country','address',
+        'earning','name', 'post_slug', 'email', 'password','gender','admin','phone','photo','provider', 'provider_id','country','address',
     ];
 
     /**
@@ -30,12 +30,12 @@ class User extends Authenticatable
 
     public function userPendingEarnings()
     {
-        return $this->hasMany(UserEarning::class ,'user_id' ,'id')->where('cleared' ,0);
+        return $this->hasMany(UserEarning::class ,'user_id' ,'id')->where('cleared' ,false);
     }
 
     public function userClearedEarnings()
     {
-        return $this->hasMany(UserEarning::class ,'user_id' ,'id')->where('cleared' ,1);
+        return $this->hasMany(UserEarning::class ,'user_id' ,'id')->where('cleared' ,true);
     }
 
     public function productOrder()
