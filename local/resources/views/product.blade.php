@@ -597,7 +597,7 @@ $setid=1;
                                                 
                                                  <div class="col-sm-3">
                                                 <a href="<?php echo $viewproduct[0]->prod_external_url;?>" class="btn btn-primary" target="_blank">
-                                                        <i class="fa fa-shopping-cart inner-right-vs"></i> @lang('languages.buy_now')
+                                                        <i class="fa fa-shopping-cart inner-right-vs"></i> @lang('languages.add_to_cart')
                                                         </a>
                                                 
                                                 </div>

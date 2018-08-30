@@ -58,7 +58,7 @@ class WalletController extends Controller
         $pending_earnings = DB::table('user_earnings')->where('user_id', $logged)->where('cleared', false)->get();
         $cleared_earnings = DB::table('user_earnings')->where('user_id', $logged)->where('cleared', true)->get();
 
-        
+
         $set_id = 1;
         $site_setting = DB::table('settings')->where('id', $set_id)->get();
 
