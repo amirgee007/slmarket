@@ -208,12 +208,7 @@ class PaymentController extends Controller
 	   $ddata = array('amount' => $amount, 'currency' => $currency, 'paypal_url' => $paypal_url, 'paypal_id' => $paypal_id, 'order_no' => $order_no, 'payment_type' => $payment_type, 'product_names' => $product_names);
             return view('payment-details')->with($ddata);
 	}
-	
-	
-	
-	
-	
-	
+
 	
 	public function avigher_view_cart()
 	{
